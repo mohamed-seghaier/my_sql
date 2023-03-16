@@ -4,12 +4,14 @@
 
 #include "../headers/print.h"
 
-void	my_putchar(char c)
+void
+my_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void	my_putstr(char *str)
+void
+my_putstr(char *str)
 {
 	int	i;
 
@@ -17,7 +19,8 @@ void	my_putstr(char *str)
 		my_putchar(str[i]);
 }
 
-void	my_putnbr(int nb)
+void
+my_putnbr(int nb)
 {
 	if (nb < 0) {
 		my_putchar('-');

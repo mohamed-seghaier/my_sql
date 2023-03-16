@@ -21,8 +21,7 @@ int     my_strlen(char *);
 char    *my_strcpy(char *);
 int     my_getnbr(char *);
 char	*my_strcat(char *, char *);
-
-
+int     my_strcmp(char *, char *);
 
 
 

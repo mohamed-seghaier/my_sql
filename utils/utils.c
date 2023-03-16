@@ -4,7 +4,8 @@
 
 #include "../headers/utils.h"
 
-int	my_strlen(char *str)
+int
+my_strlen(char *str)
 {
 	int	i = 0;
 
@@ -12,7 +13,8 @@ int	my_strlen(char *str)
 	return (i);
 }
 
-char	*my_strcpy(char *str)
+char
+*my_strcpy(char *str)
 {
 	char	*dest;
 	int	idx = my_strlen(str);
@@ -25,7 +27,8 @@ char	*my_strcpy(char *str)
 	return (dest);
 }
 
-int	my_getnbr(char *str)
+int
+my_getnbr(char *str)
 {
 	int	i = 0;
 	int	nb = 0;
@@ -42,7 +45,8 @@ int	my_getnbr(char *str)
 	return ((nb * neg) / 10);
 }
 
-char	*my_strcat(char *src, char *dest)
+char
+*my_strcat(char *src, char *dest)
 {
 	int	i = my_strlen(src);
 	int	j = my_strlen(dest);
@@ -54,4 +58,17 @@ char	*my_strcat(char *src, char *dest)
 	for (i = 0; dest[i]; i += 1, k += 1)
 		tmp[k] = dest[i];
 	return (tmp);
+}
+
+int
+my_strcmp(char *s1, char *s2)
+{
+    for (int i = 0; s1[i] && s2[i]; i += 1)
+    {
+        if (s1[i] != s2[i])
+        {
+            return -1;
+        }
+    }
+    return (1);
 }

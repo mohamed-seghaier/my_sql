@@ -4,7 +4,8 @@
 
 #include "../headers/print.h"
 
-void	my_printf(char *str, ...)
+void
+my_printf(char *str, ...)
 {
 	int	i = 0;
 	va_list	ap;
@@ -23,7 +24,8 @@ void	my_printf(char *str, ...)
 	va_end(ap);
 }
 
-int	checkflag(char c)
+int
+checkflag(char c)
 {
 	int	i = 0;
 	char	str[4] = "dsc";
@@ -34,7 +36,8 @@ int	checkflag(char c)
 	return (-1);
 }
 
-void	my_ptab(int i, va_list(ap))
+void
+my_ptab(int i, va_list(ap))
 {
 	void	(*tab[4])(va_list);
 

@@ -4,7 +4,8 @@
 
 #include "../headers/utils.h"
 
-char	*get_next_line(int fd)
+char
+*get_next_line(int fd)
 {
 	char	tmp[2];
 	char	*dest = "";
@@ -24,7 +25,8 @@ char	*get_next_line(int fd)
 	}
 }
 
-void	my_memset(char *src, int j, int m)
+void
+my_memset(char *src, int j, int m)
 {
 	int	i = 0;
 
