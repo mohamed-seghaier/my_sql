@@ -1,3 +1,10 @@
 # ninja log v5
 0	124	1678955670502582998	CMakeFiles/my_sql.dir/main.c.o	14efb55670edddb1
 126	208	1678955670589246012	my_sql	f379eca3a723eaac
+0	254	1678959152234304517	CMakeFiles/my_sql.dir/main.c.o	14efb55670edddb1
+3	255	1678959152234319978	CMakeFiles/my_sql.dir/utils/utils.c.o	4f6c0a1112ba14ea
+2	255	1678959152234336237	CMakeFiles/my_sql.dir/print/flags.c.o	53f28cfbd8fb862e
+2	256	1678959152234317526	CMakeFiles/my_sql.dir/utils/get_next_line.c.o	c3ded357798034b3
+2	261	1678959152243051035	CMakeFiles/my_sql.dir/print/my_printers.c.o	e5de188f62ad5271
+2	262	1678959152244821226	CMakeFiles/my_sql.dir/print/my_printf.c.o	15fc25ce607ec6d1
+262	516	1678959152499314476	my_sql	b75d0733e111b950
