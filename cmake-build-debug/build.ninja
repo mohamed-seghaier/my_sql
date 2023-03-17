@@ -100,6 +100,12 @@ build CMakeFiles/my_sql.dir/print/errors.c.o: C_COMPILER__my_sql_Debug /Users/da
   OBJECT_DIR = CMakeFiles/my_sql.dir
   OBJECT_FILE_DIR = CMakeFiles/my_sql.dir/print
 
+build CMakeFiles/my_sql.dir/src/sql.c.o: C_COMPILER__my_sql_Debug /Users/dali/Documents/Cours/CPP/my_sql/src/sql.c || cmake_object_order_depends_target_my_sql
+  DEP_FILE = CMakeFiles/my_sql.dir/src/sql.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/my_sql.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_sql.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target my_sql
@@ -108,7 +114,7 @@ build CMakeFiles/my_sql.dir/print/errors.c.o: C_COMPILER__my_sql_Debug /Users/da
 #############################################
 # Link the executable my_sql
 
-build my_sql: C_EXECUTABLE_LINKER__my_sql_Debug CMakeFiles/my_sql.dir/src/main.c.o CMakeFiles/my_sql.dir/print/flags.c.o CMakeFiles/my_sql.dir/print/my_printers.c.o CMakeFiles/my_sql.dir/print/my_printf.c.o CMakeFiles/my_sql.dir/utils/get_next_line.c.o CMakeFiles/my_sql.dir/utils/utils.c.o CMakeFiles/my_sql.dir/src/core.c.o CMakeFiles/my_sql.dir/src/argfunc.c.o CMakeFiles/my_sql.dir/print/errors.c.o
+build my_sql: C_EXECUTABLE_LINKER__my_sql_Debug CMakeFiles/my_sql.dir/src/main.c.o CMakeFiles/my_sql.dir/print/flags.c.o CMakeFiles/my_sql.dir/print/my_printers.c.o CMakeFiles/my_sql.dir/print/my_printf.c.o CMakeFiles/my_sql.dir/utils/get_next_line.c.o CMakeFiles/my_sql.dir/utils/utils.c.o CMakeFiles/my_sql.dir/src/core.c.o CMakeFiles/my_sql.dir/src/argfunc.c.o CMakeFiles/my_sql.dir/print/errors.c.o CMakeFiles/my_sql.dir/src/sql.c.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
   OBJECT_DIR = CMakeFiles/my_sql.dir
   POST_BUILD = :

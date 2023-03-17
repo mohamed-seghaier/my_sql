@@ -10,6 +10,7 @@ my_printerror(char *str) {
         my_putcherror(*str);
         str++;
     }
+    exit(-42);
 }
 
 void

@@ -7,6 +7,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define USERINFOFILE "/Users/dali/Documents/Cours/CPP/my_sql/data/usr"
 
 typedef enum bool  {
     true = TRUE,
@@ -17,11 +18,16 @@ typedef enum bool  {
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
 
 #include "print.h"
 #include "utils.h"
 #include "core.h"
 #include "errors.h"
+#include "sql.h"
 
 
 int main(int, char **);

@@ -12,9 +12,9 @@ char
 	int	i = 0;
 	int	j = 0;
 
-	my_memset(dest, 0, my_strlen(dest));
+    my_memset(dest, 0, my_strlen(dest));
 	while ("Dali") {
-		if ((read(fd, tmp, 1)) == -1)
+		if ((read(fd, tmp, 2)) == -1)
 			return (j == 0 ? NULL : dest);
 		if (tmp[i] == '\n')
 			return (dest);

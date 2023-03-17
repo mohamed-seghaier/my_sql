@@ -17,6 +17,11 @@ typedef struct s_args {
     char **argv;
 }arg_t;
 
+typedef struct s_usri {
+    char *user;
+    char *password;
+}usr_t;
+
 typedef struct s_flags {
     char **shortFlags;
     char **longFlags;
@@ -25,6 +30,7 @@ typedef struct s_flags {
 typedef struct s_line {
     arg_t args;
     flags_t flags;
+    usr_t usr;
 } t_line;
 typedef	void	(*ftab_t)(t_line *);
 
@@ -32,7 +38,7 @@ typedef	void	(*ftab_t)(t_line *);
 #define HELP            0
 #define VERSION         1
 #define LOGIN           2
-#define SIGNUP          3
+#define SIGNIN          3
 #define USER            4
 #define PASSWORD        5
 #define SQL             6
@@ -62,7 +68,11 @@ void    passworder(t_line *);
 void    sqler(t_line *);
 void    formater(t_line *);
 void    loginer(t_line *);
-void    signup(t_line *);
+void    signin(t_line *);
+bool    checkUser(t_line *);
+
 void    core(t_line *);
+void    newUser(t_line *);
+
 
 #endif //MY_SQL_CORE_H

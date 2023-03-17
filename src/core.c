@@ -12,6 +12,8 @@ initTlineStruct(int argc, char **argv, char **shortFlags, char **longFlags, t_li
     t->args.argv = argv;
     t->flags.longFlags = longFlags;
     t->flags.shortFlags = shortFlags;
+    t->usr.user = NULL;
+    t->usr.password = NULL;
 }
 
 void initArgPointerTab(ftab_t *argList)
@@ -19,7 +21,7 @@ void initArgPointerTab(ftab_t *argList)
     argList[HELP] = &helper;
     argList[VERSION] = &versioner;
     argList[LOGIN] = &loginer;
-    argList[SIGNUP] = &signup;
+    argList[SIGNIN] = &signin;
     argList[USER] = &userer;
     argList[PASSWORD] = &passworder;
     argList[SQL] = &sqler;
@@ -31,7 +33,7 @@ void
 starter_flags(int argc, char **argv, char **shortFlags, char **longFlags) {
 
     t_line toto;
-    bool isValid = FALSE;
+    bool isValid = false;
     initTlineStruct(argc, argv, shortFlags, longFlags, &toto);
 
     ftab_t argList[FTAB_SIZE];
@@ -46,11 +48,11 @@ starter_flags(int argc, char **argv, char **shortFlags, char **longFlags) {
             )
             {
                 (*argList[j])(&toto);
-                isValid = TRUE;
+                isValid = true;
             }
         }
     }
-    if (isValid == FALSE)
+    if (isValid == false)
     {
         exit_bad_args();
     }
@@ -66,5 +68,21 @@ exit_bad_args() {
 
 void
 core(t_line *t) {
-    my_printf("core\n");
+    char *str = "";
+    while ("DALI")
+    {
+        my_printf(">");
+        if ((str = get_next_line(0)) == NULL)
+        {
+            my_printf("Good Bye !\n");
+            exit(0);
+        }
+        my_printf("%s\n", str);
+        if ( strcmp(str, "exit") == 0) {
+            my_printf("Good Bye !\n");
+            exit(0);
+        }
+    }
+    my_printf("Bye =\n");
+    exit(0);
 }

@@ -1,6 +1,7 @@
 SRC	=	./src/main.c				\
 		./src/core.c				\
 		./src/argfunc.c				\
+		./src/sql.c				\
 		./utils/get_next_line.c		\
 		./utils/utils.c				\
 		./print/my_printf.c			\
