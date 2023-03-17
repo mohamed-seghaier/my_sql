@@ -30,7 +30,8 @@ helper(t_line *t) {
 
 void
 versioner(t_line *t) {
-    my_printf("my_bdd Ver 0.0.1.\n");
+    my_printf("my_bdd Ver %s.\n", SQLVERSION);
+    exit(0);
 }
 
 void

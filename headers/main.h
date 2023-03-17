@@ -8,6 +8,8 @@
 #define TRUE 1
 #define FALSE 0
 #define USERINFOFILE "/Users/dali/Documents/Cours/CPP/my_sql/data/usr"
+#define EXTENSION ""
+#define SQLVERSION "0.0.1"
 
 typedef enum bool  {
     true = TRUE,
