@@ -36,7 +36,12 @@ versioner(t_line *t) {
 void
 loginer(t_line *t) {
 
-
+    if (checkUser(t)) my_printf("Hello %s !\n", t->usr.user);
+    else
+    {
+        my_printf("User does not exist. Good Bye.\n");
+        exit(0);
+    }
 }
 
 void
@@ -181,9 +186,12 @@ checkUser(t_line *t)
         if (strcmp(t->usr.user, lines[0]) == 0
         && strcmp(t->usr.password, lines[1]) == 0)
         {
+            printf("testgood\n");
             return true;
         }
     }
+    printf("testbad\n");
+
     close(fd);
     return false;
 }
