@@ -6,59 +6,6 @@
 
 #define LINE_SIZE 4096
 
-int createTable(char *tableName, char **col) {
-
-    char *filePath = my_strcat(my_strcat("./data/", tableName), ".csv");
-    FILE * file = NULL;
-
-    if ( (file = fopen(filePath, "w")) == NULL ) {
-        printf("Erreur a la creation du fichier\n");
-        exit(0);
-    }
-    for (int i = 0; col[i] != NULL ; ++i) {
-        if( (fputs(col[i], file)) == EOF ) {
-            printf("Erreur a l'ecriture du fichier\n");
-            exit(0);
-        }
-        fputc(',', file);
-    }
-
-    printf("le fichier %s a bien ete ecrit\n", tableName);
-    return fclose(file);
-}
-
-int readTable(char *tableName, char **columns, char ***lines) {
-
-    char *filePath = my_strcat(my_strcat("./data/", tableName), ".csv");
-    FILE * file = NULL;
-
-    if ( (file = fopen(filePath, "r")) == NULL ) {
-        printf("Erreur a l'ouvertre du fichier\n");
-        exit(0);
-    }
-
-    printf("Lecture du fichier\n");
-    char *line = malloc(LINE_SIZE);
-
-    printf("Lecture des colones\n");
-    fgets(line, LINE_SIZE, file);
-
-    while (fgets(line, LINE_SIZE, file) != NULL) {
-
-    }
-    printf("word : %s\n", word);
-
-    columns[0] = realloc(columns[0], sizeof (word));
-    columns[0] = word;
-
-    free(word);
-    printf("column[0] : %s", columns[0]);
-
-    return fclose(file);
-}
-
-
-
 char *remplitab(char *dest, char *src, int j, char sep) {
     int idx = 0;
 
@@ -108,4 +55,45 @@ char **my_strtab(char *str, char sep) {
 
     tab[idx_tab] = NULL;
     return (tab);
+}
+
+int createTable(char *tableName, char **col) {
+
+    char *filePath = my_strcat(my_strcat("./data/", tableName), ".csv");
+    FILE * file = NULL;
+
+    if ( (file = fopen(filePath, "w")) == NULL ) {
+        printf("Erreur a la creation du fichier\n");
+        exit(0);
+    }
+    for (int i = 0; col[i] != NULL ; ++i) {
+        if( (fputs(col[i], file)) == EOF ) {
+            printf("Erreur a l'ecriture du fichier\n");
+            exit(0);
+        }
+        fputc(',', file);
+    }
+
+    printf("le fichier %s a bien ete ecrit\n", tableName);
+    return fclose(file);
+}
+
+int readTable(char *tableName, char ***columns, char ***lines) {
+
+    char *filePath = my_strcat(my_strcat("./data/", tableName), ".csv");
+    FILE * file = NULL;
+
+    if ( (file = fopen(filePath, "r")) == NULL ) {
+        printf("Erreur a l'ouvertre du fichier\n");
+        exit(0);
+    }
+
+    printf("Lecture du fichier\n");
+    char *line = malloc(LINE_SIZE);
+
+    printf("Lecture des colones\n");
+    line = fgets(line, LINE_SIZE, file);
+    columns = my_strtab(line, ',');
+
+    return fclose(file);
 }

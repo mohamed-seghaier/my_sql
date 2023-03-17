@@ -24,8 +24,13 @@ int main(int argc, char **argv) {
     linesArray[0] = NULL;
     linesArray[1] = NULL;
 
-    readTable("Person", colArray, linesArray);
+    readTable("Person", &colArray, linesArray);
 
-    printf("%s\n", colArray[0]);
+    int i = 0;
+    while (colArray[i] != NULL) {
+        printf(" %s |", colArray[i]);
+        i++;
+    }
+    printf("\n");
     return 0;
 }
