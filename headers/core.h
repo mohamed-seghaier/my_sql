@@ -9,7 +9,7 @@
 
 /**
  * FORMATS:
- * -h --help || -v --version || -l --login || -u --user || -p --password || -s --sql || -f --format
+ * -h --help || -v --version || -l --login || -u --user || -p --password || -s --sql || -f --format || -i --signin
  */
 
 typedef struct s_args {
