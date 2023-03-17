@@ -1,4 +1,4 @@
-"/Users/dali/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/Users/dali/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/ninja/mac/ninja" -G Ninja -S /Users/dali/Documents/Cours/CPP/my_sql -B /Users/dali/Documents/Cours/CPP/my_sql/cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /Users/nansmaurel/CLionProjects/my_sql -B /Users/nansmaurel/CLionProjects/my_sql/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/dali/Documents/Cours/CPP/my_sql/cmake-build-debug
+-- Build files have been written to: /Users/nansmaurel/CLionProjects/my_sql/cmake-build-debug
