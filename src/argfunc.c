@@ -94,6 +94,7 @@ passworder(t_line *t) {
 
 void
 sqler(t_line *t) {
+    char **tab2 = NULL;
     for (int i = 0; t->args.argc > i; i += 1)
     {
         if (strcmp(t->args.argv[i], "--sql") == 0 || strcmp(t->args.argv[i], "-s") == 0)
@@ -103,12 +104,23 @@ sqler(t_line *t) {
                 if (i + 1 >= t->args.argc ||
                     strcmp(t->args.argv[i + 1], t->flags.longFlags[j]) == 0 ||
                     strcmp(t->args.argv[i + 1], t->flags.shortFlags[j]) == 0 ||
-                    !checkUser(t)
-
-                        ) {
+                    !checkUser(t))
+                {
                     exit_bad_args();
                 } else
                 {
+                    tab2 = my_strtab(t->args.argv[i + 1], '(');
+                    if (tablen(tab2) > 1) {
+                        t->cmd.sqlcmd = my_strtab(tab2[1], ',');
+                        for (int e = 0; t->cmd.sqlcmd[e]; e+=1){
+                            my_printf("before = %s\n", t->cmd.sqlcmd[e]);
+                            char *tmp = epurStrForSqlCmd(t->cmd.sqlcmd[e]);
+                            t->cmd.sqlcmd[e] = tmp;
+                        }
+                        for (int e = 0; t->cmd.sqlcmd[e]; e+=1) ;
+
+                    }
+                    t->cmd.tab = my_strtab(t->args.argv[i + 1], ' ');
                     treatSqlCommand(t);
                     exit(0);
                 }
@@ -116,6 +128,8 @@ sqler(t_line *t) {
         }
     }
 }
+
+
 
 void
 formater(t_line *t) {
@@ -187,12 +201,9 @@ checkUser(t_line *t)
         if (strcmp(t->usr.user, lines[0]) == 0
         && strcmp(t->usr.password, lines[1]) == 0)
         {
-            printf("testgood\n");
             return true;
         }
     }
-    printf("testbad\n");
-
     close(fd);
     return false;
 }

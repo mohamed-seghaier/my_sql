@@ -4,8 +4,44 @@
 
 #include "../headers/utils.h"
 
+char
+*epurStrForSqlCmd(char *dest)
+{
+    my_printf("first = %s\n", dest);
+
+    char *str = NULL;
+    int  j = 0;
+    int i = 0;
+
+    for ( i = 0; dest[i]; i += 1)
+    {
+        if (dest[i] == '('
+        || dest[i] == ')'
+        || dest[i] == ' ') j += 1;
+    }
+    my_printf("%d", j);
+
+    if ((str = malloc(sizeof(char ) *
+            my_strlen(dest) - j + 1)) == NULL)
+        exit(-42);
+    my_memset(str,0, my_strlen(dest) - j + 1);
+    int e = 0;
+    for ( i = 0; e <= my_strlen(dest) - j + 1; e += 1, i += 1)
+    {
+        if (dest[i] == '('
+            || dest[i] == ')'
+            || dest[i] == ' ') {
+            i += 1;
+        }
+        str[e] = dest[i];
+    }
+    my_printf("\nfinal = %s\n", str);
+    return str;
+}
+
+
 int
-my_strlen(char *str)
+my_strlen(const char *str)
 {
 	int	i = 0;
 
@@ -119,4 +155,12 @@ my_eolen(char *str, char sep)
     for (idx_len = 0; str[idx_str]; idx_str += 1)
         str[idx_str] == sep ? idx_len += 1 : 0;
     return (idx_len);
+}
+
+int
+tablen(char **tab)
+{
+    int i = 0;
+    for (i = 0; tab[i]; i += 1);
+    return i;
 }

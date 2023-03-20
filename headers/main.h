@@ -7,7 +7,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define USERINFOFILE "/Users/nansmaurel/CLionProjects/my_sql/data/usr"
+#define USERINFOFILE "./data/usr"
 #define EXTENSION ""
 #define SQLVERSION "0.0.1"
 

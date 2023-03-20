@@ -22,6 +22,11 @@ typedef struct s_usri {
     char *password;
 }usr_t;
 
+typedef struct s_cmd {
+    char **tab;
+    char **sqlcmd;
+}cmd_t;
+
 typedef struct s_flags {
     char **shortFlags;
     char **longFlags;
@@ -31,9 +36,27 @@ typedef struct s_line {
     arg_t args;
     flags_t flags;
     usr_t usr;
+    cmd_t cmd;
 } t_line;
 typedef	void	(*ftab_t)(t_line *);
 
+
+/**
+ * SQL COMMANDS
+ */
+
+#define CMD_CREATE              0
+#define CMD_SHOW                1
+#define CMD_DESCRIBE            2
+#define CMD_INSERT              3
+#define CMD_SELECT              4
+#define CMDTAB_NULL             5
+#define CMDTAB_SIZE             6
+
+
+/**
+ * TERMINAL COMMANDS
+ */
 
 #define HELP            0
 #define VERSION         1

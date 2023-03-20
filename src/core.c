@@ -16,7 +16,8 @@ initTlineStruct(int argc, char **argv, char **shortFlags, char **longFlags, t_li
     t->usr.password = NULL;
 }
 
-void initArgPointerTab(ftab_t *argList)
+void
+initArgPointerTab(ftab_t *argList)
 {
     argList[HELP] = &helper;
     argList[VERSION] = &versioner;
@@ -72,27 +73,9 @@ createFunc(char **tab, t_line *t)
 
 }
 
-void initCmdPointerTab(ftab_t *cmdList)
-{
-    cmdList[CMD_CREATE] = &cmdCreate;
-    cmdList[CMD_SHOW] = &cmdShow;
-    cmdList[CMD_DESCRIBE] = &cmdDescribe;
-    cmdList[CMD_INSERT] = &cmdInsert;
-    cmdList[CMD_SELECT] = &cmdSelect;
-    cmdList[CMDTAB_NULL] = NULL;
-}
+
 void
 core(t_line *t) {
-
-    char *cmdList[] = {
-            "CREATE",
-            "SHOW",
-            "DESCRIBE",
-            "INSERT",
-            "SELECT",
-            NULL
-    };
-
     char *str = "";
     char **tab = NULL ;
     while ("DALI")
@@ -110,17 +93,7 @@ core(t_line *t) {
 
         tab = my_strtab(str, ' ');
         t->cmd.tab = tab;
-        ftab_t cmdFlag[CMDTAB_SIZE];
-        initCmdPointerTab(&*cmdFlag);
-        for (int i = 0; cmdList[i] != NULL; i += 1)
-        {
-            if (strcmp(tab[0], cmdList[i]) == 0)
-            {
-                (*cmdFlag[i])(t);
-            }
-        }
-        if (strcmp(tab[0], "CREATE") == 0) createFunc(tab, t);
-        //for (int j = 0;tab[j]; j += 1) my_printf("%s\n", tab[j]);
+        treatSqlCommand(t);
     }
     my_printf("Bye =\n");
     exit(0);
