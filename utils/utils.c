@@ -7,8 +7,6 @@
 char
 *epurStrForSqlCmd(char *dest)
 {
-    my_printf("first = %s\n", dest);
-
     char *str = NULL;
     int  j = 0;
     int i = 0;
@@ -19,8 +17,6 @@ char
         || dest[i] == ')'
         || dest[i] == ' ') j += 1;
     }
-    my_printf("%d", j);
-
     if ((str = malloc(sizeof(char ) *
             my_strlen(dest) - j + 1)) == NULL)
         exit(-42);
@@ -35,7 +31,6 @@ char
         }
         str[e] = dest[i];
     }
-    my_printf("\nfinal = %s\n", str);
     return str;
 }
 

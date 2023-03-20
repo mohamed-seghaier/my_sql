@@ -113,7 +113,6 @@ sqler(t_line *t) {
                     if (tablen(tab2) > 1) {
                         t->cmd.sqlcmd = my_strtab(tab2[1], ',');
                         for (int e = 0; t->cmd.sqlcmd[e]; e+=1){
-                            my_printf("before = %s\n", t->cmd.sqlcmd[e]);
                             char *tmp = epurStrForSqlCmd(t->cmd.sqlcmd[e]);
                             t->cmd.sqlcmd[e] = tmp;
                         }
