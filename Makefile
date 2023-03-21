@@ -11,7 +11,7 @@ SRC	=	./src/main.c				\
 
 OBJ	=	$(SRC:.c=.o)
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra -g -D_GNU_SOURCE
 
 NAME	=	my_bdd
 

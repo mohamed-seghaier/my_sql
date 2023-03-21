@@ -20,6 +20,8 @@ void    createDatabase(t_line *);
 void    createTable(t_line *);
 void    createUser(t_line *);
 
+void    createUserDir(t_line *);
+
 void    showDatabases(t_line *);
 void    showTables(t_line *);
 

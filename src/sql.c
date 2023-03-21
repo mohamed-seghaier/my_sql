@@ -5,7 +5,7 @@
 #include "../headers/sql.h"
 
 void
-initCmdPointerTab(ftab_t *cmdList)
+initCmdirectoryointerTab(ftab_t *cmdList)
 {
     cmdList[CMD_CREATE] = &cmdCreate;
     cmdList[CMD_SHOW] = &cmdShow;
@@ -28,7 +28,7 @@ treatSqlCommand(t_line *t)
     };
 
     ftab_t cmdFlag[CMDTAB_SIZE];
-    initCmdPointerTab(&*cmdFlag);
+    initCmdirectoryointerTab(&*cmdFlag);
     for (int i = 0; cmdList[i] != NULL; i += 1)
     {
         if (strcmp(t->cmd.tab[0], cmdList[i]) == 0)
@@ -123,8 +123,46 @@ createTable(t_line *t)
 void
 createUser(t_line *t)
 {
-    my_printf("user created\n");
+    // TODO push user to t->usr.user and password to t->usr.password
+    DIR *directory;
+    struct dirent *ep;
+    directory = opendir ("./");
+    if (directory != NULL) {
+        while ((ep = readdir(directory)) != NULL) {
+            if (strcmp(ep->d_name, "users") == 0) {
+                closedir(directory);
+                createUserDir(t);
+            }
+            else{
+                my_printerror("Error ocurred on user creation.\n");
+                exit(-42);
+            }
+        }
+
+    }
 }
+
+void
+createUserDir(t_line *t)
+{
+    DIR *directory;
+    struct dirent *ep;
+    if ((directory = opendir ("./")) == NULL) goto errorOnCreateUser;
+    if (directory != NULL) {
+        while ((ep = readdir(directory)) != NULL) {
+            if (strcmp(ep->d_name, t->usr.user) != 0) {
+                mkdir(my_strcat("./users/", t->usr.user), 0777);
+            } else {
+                goto errorOnCreateUser;
+            }
+        }
+    } else goto errorOnCreateUser;
+
+    errorOnCreateUser:
+    my_printerror("Error ocurred on user creation.\n");
+    exit(-42);
+}
+
 
 void
 showDatabases(t_line *t)

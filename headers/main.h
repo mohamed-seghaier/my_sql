@@ -5,6 +5,8 @@
 #ifndef MY_SQL_MAIN_H
 #define MY_SQL_MAIN_H
 
+#define _GNU_SOURCE
+
 #define TRUE 1
 #define FALSE 0
 #define USERINFOFILE "./data/usr"
@@ -24,6 +26,7 @@ typedef enum bool  {
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <dirent.h>
 
 #include "print.h"
 #include "utils.h"
