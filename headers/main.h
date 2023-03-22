@@ -5,11 +5,10 @@
 #ifndef MY_SQL_MAIN_H
 #define MY_SQL_MAIN_H
 
-#define _GNU_SOURCE
 
 #define TRUE 1
 #define FALSE 0
-#define USERINFOFILE "./data/usr"
+#define USERINFOFILE "./data/admin"
 #define EXTENSION ""
 #define SQLVERSION "0.0.1"
 
@@ -17,7 +16,7 @@ typedef enum bool  {
     true = TRUE,
     false = FALSE
 }bool;
-
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

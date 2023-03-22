@@ -49,7 +49,7 @@ void    cmdCreate(t_line *t)
     createCmdFlag[0] = &createDatabase;
     createCmdFlag[1] = &createTable;
     createCmdFlag[2] = &createUser;
-    createCmdFlag[2] = NULL;
+    createCmdFlag[3] = NULL;
 
     for (int i = 0; createCmdList[i]; i += 1)
     {
@@ -123,40 +123,60 @@ createTable(t_line *t)
 void
 createUser(t_line *t)
 {
-    // TODO push user to t->usr.user and password to t->usr.password
-    DIR *directory;
-    struct dirent *ep;
-    directory = opendir ("./");
-    if (directory != NULL) {
-        while ((ep = readdir(directory)) != NULL) {
-            if (strcmp(ep->d_name, "users") == 0) {
-                closedir(directory);
-                createUserDir(t);
-            }
-            else{
-                my_printerror("Error ocurred on user creation.\n");
-                exit(-42);
-            }
-        }
-
+    struct stat sb;
+    if (stat("./users", &sb) == 0 && S_ISDIR(sb.st_mode)) {
+        createUserDir(t);
+    } else {
+        my_printerror("Error ocurred on user creation.\n");
+        exit(-42);
     }
+//    DIR *directory;
+//    struct dirent *ep;
+//    directory = opendir ("/Users/dali/Documents/Cours/CPP/my_sql");
+//    if (directory != NULL) {
+//        while ((ep = readdir(directory)) != NULL) {
+//            puts(ep->d_name);
+//            if (strcmp(ep->d_name, "users") == 0) {
+//                closedir(directory);
+//            }
+//            else{
+//                my_printerror("Error ocurred on user creation2.\n");
+//                exit(-42);
+//            }
+//        }
+//    }
 }
 
 void
 createUserDir(t_line *t)
 {
-    DIR *directory;
-    struct dirent *ep;
-    if ((directory = opendir ("./")) == NULL) goto errorOnCreateUser;
-    if (directory != NULL) {
-        while ((ep = readdir(directory)) != NULL) {
-            if (strcmp(ep->d_name, t->usr.user) != 0) {
-                mkdir(my_strcat("./users/", t->usr.user), 0777);
-            } else {
-                goto errorOnCreateUser;
-            }
-        }
-    } else goto errorOnCreateUser;
+    int i = 0;
+    char *user = NULL;
+    FILE *file;
+    struct stat sb;
+
+    for (i = 0;t->cmd.tab[i]; i++);
+    if (i != 6) goto errorOnCreateUser;
+
+    if (strcmp(t->cmd.tab[2], "user") != 0
+    && strcmp(t->cmd.tab[2], "USER") != 0
+    && strcmp(t->cmd.tab[2], "u") != 0) goto errorOnCreateUser;
+    else user = my_strcat("./users/", t->cmd.tab[3]);
+    if (stat(user, &sb) == 0) goto errorOnCreateUser;
+    else {
+        mkdir(user, 0777);
+    }
+
+    if (strcmp(t->cmd.tab[4], "password") != 0
+        && strcmp(t->cmd.tab[4], "PASSWORD") != 0
+        && strcmp(t->cmd.tab[4], "p") != 0) goto errorOnCreateUser;
+    else {
+        user = my_strcat(user, "/");
+        if ((file = fopen(my_strcat(user, "password"), "w")) == NULL
+            || fprintf(file, "%s", t->cmd.tab[5]) != my_strlen(t->cmd.tab[5]))goto errorOnCreateUser;
+        fclose(file);
+        return;
+    }
 
     errorOnCreateUser:
     my_printerror("Error ocurred on user creation.\n");

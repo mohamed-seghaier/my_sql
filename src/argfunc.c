@@ -109,6 +109,8 @@ sqler(t_line *t) {
                     exit_bad_args();
                 } else
                 {
+                    t->usr.user = NULL;
+                    t->usr.password = NULL;
                     tab2 = my_strtab(t->args.argv[i + 1], '(');
                     if (tablen(tab2) > 1) {
                         t->cmd.sqlcmd = my_strtab(tab2[1], ',');
@@ -182,7 +184,23 @@ checkUser(t_line *t)
     struct stat st;
     char *file = NULL;
     char **lines = NULL;
+    struct stat sb;
+    FILE *f1;
 
+
+
+    char *user = my_strcat("./users/", t->usr.user);
+    if (stat(user, &sb) == 0) {
+        if ((f1 = fopen(my_strcat(user, "/password"), "r")) != NULL
+           && fstat(f1->_file, &sb) != -1
+           && (file = malloc(sizeof (char) * st.st_size + 1)) != NULL
+           && read(f1->_file, file, sb.st_size) != -1
+           && strcmp(t->usr.password, file) == 0)
+            return true;
+    }
+    ////////////////////////////////////////////////////////
+    (void)sb;
+    file = NULL;
     if ((fd = open(USERINFOFILE, O_RDWR))== -1
     || (fstat(fd, &st) == -1)
     || (file = malloc(sizeof (char) * st.st_size + 1)) == NULL

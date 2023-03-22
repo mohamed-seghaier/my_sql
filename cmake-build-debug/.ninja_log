@@ -11,3 +11,14 @@
 3	148	1679011519921768513	CMakeFiles/my_sql.dir/print/flags.c.o	53f28cfbd8fb862e
 3	150	1679011519921711389	CMakeFiles/my_sql.dir/print/my_printers.c.o	e5de188f62ad5271
 150	245	1679011520021766507	CMakeFiles/my_sql.dir/print/errors.c.o	95b568b8643da138
+1	137	1679421782149355424	CMakeFiles/my_sql.dir/src/main.c.o	4c012ec0da5ea80c
+2	138	1679421782149441685	CMakeFiles/my_sql.dir/print/my_printf.c.o	15fc25ce607ec6d1
+3	138	1679421782149444892	CMakeFiles/my_sql.dir/utils/get_next_line.c.o	c3ded357798034b3
+2	139	1679421782149183757	CMakeFiles/my_sql.dir/print/flags.c.o	53f28cfbd8fb862e
+2	140	1679421782149182608	CMakeFiles/my_sql.dir/print/my_printers.c.o	e5de188f62ad5271
+3	140	1679421782151800359	CMakeFiles/my_sql.dir/utils/utils.c.o	4f6c0a1112ba14ea
+139	225	1679421782238476139	CMakeFiles/my_sql.dir/print/errors.c.o	95b568b8643da138
+137	228	1679421782242058154	CMakeFiles/my_sql.dir/src/core.c.o	50b50243fc58f8bb
+139	228	1679421782242666058	CMakeFiles/my_sql.dir/src/sql.c.o	7c047ee399b1b2e0
+138	233	1679421782249105619	CMakeFiles/my_sql.dir/src/argfunc.c.o	64deb62f82ce5cc
+233	302	1679421782317587949	my_sql	c5accbd39ccdc64e
