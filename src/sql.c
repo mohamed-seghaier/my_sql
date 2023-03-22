@@ -108,7 +108,7 @@ createDatabase(t_line *t)
     char *str = my_strcat("./users/", t->usr.user);
     struct stat sb;
 
-    if (i == 3
+    if (i >= 3
     && stat(str, &sb) == 0
     && S_ISDIR(sb.st_mode)
     && stat(my_strcat(my_strcat(str, "/"), t->cmd.tab[2]), &sb) != 0
@@ -117,7 +117,7 @@ createDatabase(t_line *t)
         mkdir(str, 0777);
         my_printf("Database \" %s \" successfully created\n", t->cmd.tab[2]);
     } else {
-        my_printerror("Error ocurred on database creation.\n");
+        my_printerror("Error occurred on database creation.\n");
         exit(-42);
     }
 }
@@ -147,7 +147,7 @@ createUser(t_line *t)
     if (stat("./users", &sb) == 0 && S_ISDIR(sb.st_mode)) {
         createUserDir(t);
     } else {
-        my_printerror("Error ocurred on user creation.\n");
+        my_printerror("Error occurred on user creation.\n");
         exit(-42);
     }
 }
@@ -184,7 +184,7 @@ createUserDir(t_line *t)
     }
 
     errorOnCreateUser:
-    my_printerror("Error ocurred on user creation.\n");
+    my_printerror("Error occurred on user creation.\n");
     exit(-42);
 }
 
@@ -192,8 +192,19 @@ createUserDir(t_line *t)
 void
 showDatabases(t_line *t)
 {
-    my_printf("i show databases\n");
-}
+    char *username = my_strcat("./users/", t->usr.user);
+    DIR *d;
+    struct dirent *dir;
+    d = opendir(username);
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            if (strcmp(dir->d_name, ".") != 0
+            && strcmp(dir->d_name, "..") != 0
+            && dir->d_type == DT_DIR)
+            my_printf("%s\n", dir->d_name);
+        }
+        closedir(d);
+    }}
 
 void
 showTables(t_line *t)
