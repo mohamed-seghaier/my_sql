@@ -20,6 +20,7 @@ typedef struct s_args {
 typedef struct s_usri {
     char *user;
     char *password;
+    char *databaseSelected;
 }usr_t;
 
 typedef struct s_cmd {
@@ -50,8 +51,9 @@ typedef	void	(*ftab_t)(t_line *);
 #define CMD_DESCRIBE            2
 #define CMD_INSERT              3
 #define CMD_SELECT              4
-#define CMDTAB_NULL             5
-#define CMDTAB_SIZE             6
+#define CMD_USE                 5
+#define CMDTAB_NULL             6
+#define CMDTAB_SIZE             7
 
 
 /**

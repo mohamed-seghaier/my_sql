@@ -5,13 +5,14 @@
 #include "../headers/sql.h"
 
 void
-initCmdirectoryointerTab(ftab_t *cmdList)
+initCmdirectorPointerTab(ftab_t *cmdList)
 {
     cmdList[CMD_CREATE] = &cmdCreate;
     cmdList[CMD_SHOW] = &cmdShow;
     cmdList[CMD_DESCRIBE] = &cmdDescribe;
     cmdList[CMD_INSERT] = &cmdInsert;
     cmdList[CMD_SELECT] = &cmdSelect;
+    cmdList[CMD_USE] = &cmdUse;
     cmdList[CMDTAB_NULL] = NULL;
 }
 
@@ -24,11 +25,12 @@ treatSqlCommand(t_line *t)
             "DESCRIBE",
             "INSERT",
             "SELECT",
+            "USE",
             NULL
     };
 
     ftab_t cmdFlag[CMDTAB_SIZE];
-    initCmdirectoryointerTab(&*cmdFlag);
+    initCmdirectorPointerTab(&*cmdFlag);
     for (int i = 0; cmdList[i] != NULL; i += 1)
     {
         if (strcmp(t->cmd.tab[0], cmdList[i]) == 0)
@@ -91,6 +93,35 @@ void    cmdInsert(t_line *t)
 {
 
     my_printf("insert\n");
+}
+void    cmdUse(t_line *t)
+{
+    char *str = my_strcat("./users/", t->usr.user);
+    int i;
+    struct stat sb;
+
+    for (i = 0; t->cmd.tab[i]; i++);
+
+    if (i >= 2
+        && stat(str, &sb) == 0
+        && S_ISDIR(sb.st_mode)
+        && stat(my_strcat(my_strcat(str, "/"), t->cmd.tab[1]), &sb) == 0)
+    {
+        str = my_strcat(my_strcat(str, "/"), t->cmd.tab[1]);
+        if (t->usr.databaseSelected) {
+            t->usr.databaseSelected = str;
+            my_printf("Database successfully switched to %s.\n", t->cmd.tab[1]);
+        }
+        else {
+            t->usr.databaseSelected = str;
+            my_printf("Database %s successfully selected.\n", t->cmd.tab[1]);
+        }
+
+    }
+    else
+    {
+        my_printerror("Error on database selection.\n");
+    }
 }
 
 void    cmdSelect(t_line *t)
@@ -195,16 +226,48 @@ showDatabases(t_line *t)
     char *username = my_strcat("./users/", t->usr.user);
     DIR *d;
     struct dirent *dir;
+
+    showDatabaseHeader();
     d = opendir(username);
     if (d) {
         while ((dir = readdir(d)) != NULL) {
             if (strcmp(dir->d_name, ".") != 0
             && strcmp(dir->d_name, "..") != 0
-            && dir->d_type == DT_DIR)
-            my_printf("%s\n", dir->d_name);
+            && dir->d_type == DT_DIR) {
+                my_printf("|%s", dir->d_name);
+                for (int i = 0; i < 18 - my_strlen(dir->d_name); i += 1)
+                    my_printf(" ");
+                my_printf("|\n");
+            }
         }
         closedir(d);
-    }}
+    }
+    showDatabaseFooter();
+}
+
+void
+showDatabaseHeader()
+{
+    write(1, "+",1);
+    for (int i = 0; i < 18; i += 1)
+        my_printf("-");
+    write(1, "+",1);
+    my_printf("\n|Database");
+    for (int i = 0; i < 20 - my_strlen("|Database "); i += 1)
+        my_printf(" ");
+    my_printf("|\n+");
+    for (int i = 0; i < 18; i += 1)
+        my_printf("-");
+    write(1, "+\n",2);
+}
+void
+showDatabaseFooter()
+{
+    write(1, "+",1);
+    for (int i = 0; i < 18; i += 1)
+        my_printf("-");
+    write(1, "+\n",2);
+}
 
 void
 showTables(t_line *t)

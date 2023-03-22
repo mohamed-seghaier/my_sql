@@ -14,6 +14,7 @@ void    cmdCreate(t_line *);
 void    cmdShow(t_line *);
 void    cmdDescribe(t_line *);
 void    cmdInsert(t_line *);
+void    cmdUse(t_line *);
 void    cmdSelect(t_line *);
 
 void    createDatabase(t_line *);
@@ -23,6 +24,8 @@ void    createUser(t_line *);
 void    createUserDir(t_line *);
 
 void    showDatabases(t_line *);
+void    showDatabaseHeader();
+void    showDatabaseFooter();
 void    showTables(t_line *);
 
 #endif //MY_SQL_SQL_H

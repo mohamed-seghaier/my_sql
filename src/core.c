@@ -14,6 +14,7 @@ initTlineStruct(int argc, char **argv, char **shortFlags, char **longFlags, t_li
     t->flags.shortFlags = shortFlags;
     t->usr.user = NULL;
     t->usr.password = NULL;
+    t->usr.databaseSelected = NULL;
 }
 
 void
