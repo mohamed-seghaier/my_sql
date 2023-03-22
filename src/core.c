@@ -86,7 +86,7 @@ core(t_line *t) {
             my_printf("Good Bye !\n");
             exit(0);
         }
-        if ( strcmp(str, "exit") == 0) {
+        if ( strcmp(str, "exit") == 0 || strcmp(str, "EXIT") == 0) {
             my_printf("Good Bye !\n");
             exit(0);
         }

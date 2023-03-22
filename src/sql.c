@@ -35,7 +35,9 @@ treatSqlCommand(t_line *t)
         {
             (*cmdFlag[i])(t);
         }
-    }}
+    }
+    return;
+}
 
 void    cmdCreate(t_line *t)
 {
@@ -101,7 +103,23 @@ void    cmdSelect(t_line *t)
 void
 createDatabase(t_line *t)
 {
-    my_printf("database created\n");
+    int i = 0;
+    for (i = 0; t->cmd.tab[i]; i++);
+    char *str = my_strcat("./users/", t->usr.user);
+    struct stat sb;
+
+    if (i == 3
+    && stat(str, &sb) == 0
+    && S_ISDIR(sb.st_mode)
+    && stat(my_strcat(my_strcat(str, "/"), t->cmd.tab[2]), &sb) != 0
+    ) {
+        str = my_strcat(my_strcat(str, "/"), t->cmd.tab[2]);
+        mkdir(str, 0777);
+        my_printf("Database \" %s \" successfully created\n", t->cmd.tab[2]);
+    } else {
+        my_printerror("Error ocurred on database creation.\n");
+        exit(-42);
+    }
 }
 void
 createTable(t_line *t)
@@ -111,7 +129,7 @@ createTable(t_line *t)
     char **stab = NULL;
 
 
-    for (i = 0; t->cmd.tab[i]; i += 1);
+    for (i = 0; t->cmd.tab[i]; i += 1) my_printf("%s\n",t->cmd.tab[i]);
     if (i < 3) exit_bad_args();
 //    str = epurStrForSqlCmd(t->cmd.tab[4]);
 //    my_printf("%s\n",str);
@@ -123,6 +141,8 @@ createTable(t_line *t)
 void
 createUser(t_line *t)
 {
+    t->usr.user = NULL;
+    t->usr.password = NULL;
     struct stat sb;
     if (stat("./users", &sb) == 0 && S_ISDIR(sb.st_mode)) {
         createUserDir(t);
@@ -130,21 +150,6 @@ createUser(t_line *t)
         my_printerror("Error ocurred on user creation.\n");
         exit(-42);
     }
-//    DIR *directory;
-//    struct dirent *ep;
-//    directory = opendir ("/Users/dali/Documents/Cours/CPP/my_sql");
-//    if (directory != NULL) {
-//        while ((ep = readdir(directory)) != NULL) {
-//            puts(ep->d_name);
-//            if (strcmp(ep->d_name, "users") == 0) {
-//                closedir(directory);
-//            }
-//            else{
-//                my_printerror("Error ocurred on user creation2.\n");
-//                exit(-42);
-//            }
-//        }
-//    }
 }
 
 void

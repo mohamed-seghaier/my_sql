@@ -109,8 +109,6 @@ sqler(t_line *t) {
                     exit_bad_args();
                 } else
                 {
-                    t->usr.user = NULL;
-                    t->usr.password = NULL;
                     tab2 = my_strtab(t->args.argv[i + 1], '(');
                     if (tablen(tab2) > 1) {
                         t->cmd.sqlcmd = my_strtab(tab2[1], ',');

@@ -73,8 +73,9 @@ typedef	void	(*ftab_t)(t_line *);
  * CORE.C
  */
 
-void starter_flags(int, char **, char **, char **);
-void exit_bad_args();
+void    starter_flags(int, char **, char **, char **);
+void    exit_bad_args();
+void    sqlBaseFunc(t_line *);
 
 
 /**
