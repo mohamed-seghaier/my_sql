@@ -7,10 +7,13 @@
 
 #include "main.h"
 
+typedef struct column col_t;
+
 /**
  * FORMATS:
  * -h --help || -v --version || -l --login || -u --user || -p --password || -s --sql || -f --format || -i --signin
  */
+
 
 typedef struct s_args {
     int argc;

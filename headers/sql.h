@@ -9,6 +9,7 @@
 #include "core.h"
 typedef struct s_line t_line;
 
+
 void    treatSqlCommand(t_line *);
 void    cmdCreate(t_line *);
 void    cmdShow(t_line *);
@@ -29,6 +30,7 @@ void    showDatabaseFooter();
 void    showTables(t_line *);
 void    showTablesHeader(t_line *);
 void    showTablesFooter();
+void    remplifile(char *, char *);
 
 
 #endif //MY_SQL_SQL_H

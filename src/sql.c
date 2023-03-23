@@ -89,11 +89,6 @@ void    cmdDescribe(t_line *t)
     my_printf("describe\n");
 }
 
-void    cmdInsert(t_line *t)
-{
-
-    my_printf("insert\n");
-}
 
 void    cmdSelect(t_line *t)
 {

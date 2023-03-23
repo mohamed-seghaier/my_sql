@@ -69,13 +69,6 @@ exit_bad_args() {
 }
 
 void
-createFunc(char **tab, t_line *t)
-{
-
-}
-
-
-void
 core(t_line *t) {
     char *str = "";
     char **tab = NULL ;
