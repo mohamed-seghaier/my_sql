@@ -89,12 +89,68 @@ void    cmdDescribe(t_line *t)
     my_printf("describe\n");
 }
 
+bool thoseColumnsExist(char  *str, char **tab, int fromPos)
+{
+    DIR *table_dir = opendir(str);
+    if (table_dir == NULL) {
+        printf("Error on select function.\n");
+        return false;
+    }
+    struct dirent *entry;
+    while ((entry = readdir(table_dir)) != NULL) {
+        if (entry->d_type == DT_REG) {
+            for (int i = 1; strcmp(tab[i], "FROM") != 0; i++) {
+                if (strcmp(tab[i], entry->d_name) != 0) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 
 void    cmdSelect(t_line *t)
 {
+    int i = 0;
+    FILE *file;
+    DIR *table_dir;
+    struct dirent *dir;
+    char *tableSelected = NULL;
+    int fromPos = 0;
+    struct stat sb;
+    char *temp;
+    char **fileContent;
+    char *filename;
 
-    my_printf("select\n");
+    for (i = 0; t->cmd.tab[i]; i += 1) {
+        t->cmd.tab[i] = epurStrForSqlCmd(t->cmd.tab[i]);
+    }
+
+    for (i = 0; t->cmd.tab[i]; i++)if (strcmp(t->cmd.tab[i], "FROM") == 0) fromPos = i;
+    if (!t->usr.databaseSelected) my_printerror("Please select a database by using the USE function.\n");
+    else {
+        if (i > 3 && t->cmd.tab[fromPos + 1]){
+            tableSelected = my_strcat(my_strcat(t->usr.databaseSelected, "/"), t->cmd.tab[fromPos + 1]);
+            if (!thoseColumnsExist(tableSelected, t->cmd.tab, fromPos))
+            {
+                printf("Error on select function.\n");
+                exit (-42);
+            } else{
+                table_dir = opendir(tableSelected);
+                while ((dir = readdir(table_dir)) != NULL) {
+                    file = fopen(dir->d_name, "r");
+                    stat(dir->d_name, &sb);
+                    temp = malloc(sizeof (char ) * sb.st_size + 1);
+                    read(file->_file, temp,sb.st_size);
+                    my_printf("Column : %s \n%s\n", dir->d_name, temp);
+                    fclose(file);
+                    free(temp);
+                }
+            }
+        }
+    }
 }
+
 
 
 void

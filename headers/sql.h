@@ -30,7 +30,7 @@ void    showDatabaseFooter();
 void    showTables(t_line *);
 void    showTablesHeader(t_line *);
 void    showTablesFooter();
-void    remplifile(char *, char *);
+bool    thoseColumnsExist(char  *, char **, int);
 
 
 #endif //MY_SQL_SQL_H
