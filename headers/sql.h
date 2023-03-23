@@ -27,5 +27,8 @@ void    showDatabases(t_line *);
 void    showDatabaseHeader();
 void    showDatabaseFooter();
 void    showTables(t_line *);
+void    showTablesHeader(t_line *);
+void    showTablesFooter();
+
 
 #endif //MY_SQL_SQL_H

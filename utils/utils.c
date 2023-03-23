@@ -15,7 +15,8 @@ char
     {
         if (dest[i] == '('
         || dest[i] == ')'
-        || dest[i] == ' ') j += 1;
+        || dest[i] == ' '
+        || dest[i] == ',') j += 1;
     }
     if ((str = malloc(sizeof(char ) *
             my_strlen(dest) - j + 1)) == NULL)
@@ -26,7 +27,8 @@ char
     {
         if (dest[i] == '('
             || dest[i] == ')'
-            || dest[i] == ' ') {
+            || dest[i] == ' '
+            || dest[i] == ',') {
             i += 1;
         }
         str[e] = dest[i];

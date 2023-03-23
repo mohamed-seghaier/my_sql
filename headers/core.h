@@ -21,6 +21,7 @@ typedef struct s_usri {
     char *user;
     char *password;
     char *databaseSelected;
+    char *databaseSelectedName;
 }usr_t;
 
 typedef struct s_cmd {
