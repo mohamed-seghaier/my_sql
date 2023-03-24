@@ -31,6 +31,9 @@ void    showTables(t_line *);
 void    showTablesHeader(t_line *);
 void    showTablesFooter();
 bool    thoseColumnsExist(char  *, char **, int);
+void    epurStrForSelectCmd(char *);
+void    showStar(t_line *);
+
 
 
 #endif //MY_SQL_SQL_H

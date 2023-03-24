@@ -92,21 +92,25 @@ void    cmdDescribe(t_line *t)
 bool thoseColumnsExist(char  *str, char **tab, int fromPos)
 {
     DIR *table_dir = opendir(str);
+    int cpt = 0;
+    int tabSize = 0;
     if (table_dir == NULL) {
         printf("Error on select function.\n");
         return false;
     }
+    for (int i = 1; strcmp(tab[i], "FROM") != 0; i += 1, tabSize += 1);
+
     struct dirent *entry;
     while ((entry = readdir(table_dir)) != NULL) {
         if (entry->d_type == DT_REG) {
             for (int i = 1; strcmp(tab[i], "FROM") != 0; i++) {
-                if (strcmp(tab[i], entry->d_name) != 0) {
-                    return false;
+                if (strcmp(tab[i], entry->d_name) == 0) {
+                    cpt += 1;
                 }
             }
         }
     }
-    return true;
+    return (cpt == tabSize || tabSize < cpt);
 }
 
 void    cmdSelect(t_line *t)
@@ -119,7 +123,6 @@ void    cmdSelect(t_line *t)
     int fromPos = 0;
     struct stat sb;
     char *temp;
-    char **fileContent;
     char *filename;
 
     for (i = 0; t->cmd.tab[i]; i += 1) {
@@ -127,27 +130,77 @@ void    cmdSelect(t_line *t)
     }
 
     for (i = 0; t->cmd.tab[i]; i++)if (strcmp(t->cmd.tab[i], "FROM") == 0) fromPos = i;
-    if (!t->usr.databaseSelected) my_printerror("Please select a database by using the USE function.\n");
+    if (strcmp(t->cmd.tab[1], "*") == 0) showStar(t);
+    else if (!t->usr.databaseSelected) my_printerror("Please select a database by using the USE function.\n");
     else {
         if (i > 3 && t->cmd.tab[fromPos + 1]){
             tableSelected = my_strcat(my_strcat(t->usr.databaseSelected, "/"), t->cmd.tab[fromPos + 1]);
             if (!thoseColumnsExist(tableSelected, t->cmd.tab, fromPos))
             {
-                printf("Error on select function.\n");
+                printf("Error on select function333.\n");
                 exit (-42);
             } else{
                 table_dir = opendir(tableSelected);
                 while ((dir = readdir(table_dir)) != NULL) {
-                    file = fopen(dir->d_name, "r");
+                    filename = my_strcat(tableSelected, "/");
+                    file = fopen(my_strcat(filename, dir->d_name), "r");
                     stat(dir->d_name, &sb);
                     temp = malloc(sizeof (char ) * sb.st_size + 1);
                     read(file->_file, temp,sb.st_size);
-                    my_printf("Column : %s \n%s\n", dir->d_name, temp);
+                    for (int i = 1; strcmp(t->cmd.tab[i], "FROM") != 0; i++) {
+                        epurStrForSelectCmd(temp);
+                        if (strcmp(t->cmd.tab[i], dir->d_name) == 0) {
+                            my_printf("Column : ** %s ** \n%s\n", dir->d_name, temp);
+                        }
+                    }
                     fclose(file);
                     free(temp);
                 }
             }
         }
+    }
+}
+
+void
+epurStrForSelectCmd(char *str)
+{
+    for (int i = 0; str[i] ; ++i) {
+        if (str[i] == ';') str[i] = '\n';
+    }
+}
+
+void
+showStar(t_line *t)
+{
+    FILE *file;
+    DIR *table_dir;
+    struct dirent *dir;
+    char *tableSelected;
+    int fromPos = 0;
+    char *filename;
+    struct stat sb;
+    char *temp;
+
+
+    for (int i = 0; t->cmd.tab[i]; i++)if (strcmp(t->cmd.tab[i], "FROM") == 0) fromPos = i;
+
+    tableSelected = my_strcat(my_strcat(t->usr.databaseSelected, "/"), t->cmd.tab[fromPos + 1]);
+
+    table_dir = opendir(tableSelected);
+    while ((dir = readdir(table_dir)) != NULL) {
+        filename = my_strcat(tableSelected, "/");
+        file = fopen(my_strcat(filename, dir->d_name), "r");
+        stat(dir->d_name, &sb);
+        temp = malloc(sizeof (char ) * sb.st_size + 1);
+        read(file->_file, temp,sb.st_size);
+        for (int i = 1; strcmp(t->cmd.tab[i], "FROM") != 0; i++) {
+            epurStrForSelectCmd(temp);
+            if (strcmp(dir->d_name, ".") != 0
+            && strcmp(dir->d_name, "..") != 0)
+                my_printf("Column : ** %s ** \n%s\n", dir->d_name, temp);
+        }
+        fclose(file);
+        free(temp);
     }
 }
 
